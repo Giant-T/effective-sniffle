@@ -1,0 +1,218 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Base-Slim-Skeleton
+  description: Structure de base d'un api créé dans le cadre du cours Services Web H2022
+
+servers:
+  - url: http://localhost/base-slim-skeleton
+paths:
+  /:
+    get:
+      tags:
+        - Général
+      summary: Message de bienvenue
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                example:
+                  success: true
+                  message: 'Hello world!'
+
+  /users:
+    post:
+      tags:
+        - Usagers
+      summary: Création d'un usager.
+      requestBody:
+        description: Les informations de l'usager à créer
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+              example:
+                username: 'mathF'
+                first_name: 'Mathieu'
+                last_name: 'Fréchette'
+                email: 'frechette.mathieu@cegepvicto.ca'
+      responses:
+        '201':
+          description: Le id de l'usager créé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: integer
+                example:
+                  id: 1
+    get:
+      tags:
+        - Usagers
+      summary: Affichage des usagers.
+      responses:
+        '200':
+          description: "Les usagers de la base de la base de données."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        username:
+                          type: string
+                        email:
+                          type: string
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                example:
+                  id: 1
+                  username: 'mathF'
+                  first_name: 'Mathieu'
+                  last_name: 'Fréchette'
+                  email: 'frechette.mathieu@cegepvicto.ca'
+  /users/{id}:
+    get:
+      tags:
+        - Usagers
+      summary: Affichage d'un usager.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            additionalProperties: false
+            format: int32
+      responses:
+        '200':
+          description: "L'usager de la base de la base de données."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        username:
+                          type: string
+                        email:
+                          type: string
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                example:
+                  id: 1
+                  username: 'mathF'
+                  first_name: 'Mathieu'
+                  last_name: 'Fréchette'
+                  email: 'frechette.mathieu@cegepvicto.ca'
+    put:
+      tags:
+        - Usagers
+      summary: Update d'un usager.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            additionalProperties: false
+            format: int64
+      requestBody:
+        description: Les informations de l'usager a modifier.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+              example:
+                username: 'mathF'
+                first_name: 'Mathieu'
+                last_name: 'Fréchette'
+                email: 'frechette.mathieu@cegepvicto.ca'
+      responses:
+        '200':
+          description: "L'id de l'usager."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                example:
+                  id: 1
+    delete:
+      tags:
+        - Usagers
+      summary: Update d'un usager.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            additionalProperties: false
+            format: int64
+      responses:
+        '200':
+          description: "L'id de l'usager."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: object
+                    properties:
+                      has_worked:
+                        type: boolean
+                example:
+                  has_worked: 1
