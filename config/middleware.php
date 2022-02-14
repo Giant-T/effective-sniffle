@@ -20,5 +20,9 @@ return function (App $app) {
     $app->add(BasePathMiddleware::class);
 
     // Catch exceptions and errors
-    $app->add(ErrorMiddleware::class);
+    $loggerFactory = $app->getContainer()->get(\App\Factory\LoggerFactory::class);
+    // Le nom du fichier où les erreurs seront inscrites
+    $logger = $loggerFactory->addFileHandler('errors.log')->createLogger();
+    $app->addErrorMiddleware(true, true, true, $logger);
+
 };

@@ -56,11 +56,14 @@ $settings['db'] = [
 // Logger settings
 $settings['logger'] = [
     'name' => 'app',
+    // C'est ici qu'on indique dans quel répertoire sera les fichiers
+    // à modifier si vous avez utiliser un autre nom
     'path' => __DIR__ . '/../logs',
     'filename' => 'app.log',
     'level' => \Monolog\Logger::DEBUG,
     'file_permission' => 0775,
 ];
+
 
 // Twig settings
 $settings['twig'] = [

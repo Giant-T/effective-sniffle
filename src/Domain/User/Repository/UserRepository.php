@@ -79,15 +79,15 @@ class UserRepository
         }
         if ($data['first_name']) {
             $stmt = $this->connection->prepare( "UPDATE users SET first_name =:first_name WHERE id =:id" );
-            $stmt->execute(['id' => $id, 'username' => $data['first_name']]);
+            $stmt->execute(['id' => $id, 'first_name' => $data['first_name']]);
         }
         if ($data['last_name']) {
             $stmt = $this->connection->prepare( "UPDATE users SET last_name =:last_name WHERE id =:id" );
-            $stmt->execute(['id' => $id, 'username' => $data['last_name']]);
+            $stmt->execute(['id' => $id, 'last_name' => $data['last_name']]);
         }
         if ($data['email']) {
             $stmt = $this->connection->prepare( "UPDATE users SET email =:email WHERE id =:id" );
-            $stmt->execute(['id' => $id, 'username' => $data['email']]);
+            $stmt->execute(['id' => $id, 'email' => $data['email']]);
         }
         return $id;
     }
