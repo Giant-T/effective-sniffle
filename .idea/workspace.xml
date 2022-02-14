@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f581db39-5b91-4f5d-ba7f-6962d6adbd95" name="Default Changelist" comment="" />
+    <list default="true" id="f581db39-5b91-4f5d-ba7f-6962d6adbd95" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -89,7 +92,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Action" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -99,6 +102,11 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\libapi\src\Action" />
+      <recent name="C:\xampp\htdocs\libapi\src\Domain\User\Repository" />
+      <recent name="C:\xampp\htdocs\libapi\src\Domain\User\Service" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\libapi\src\Action" />
     </key>
@@ -117,6 +125,8 @@
       <workItem from="1643987010012" duration="146000" />
       <workItem from="1644248565827" duration="1852000" />
       <workItem from="1644543065964" duration="1014000" />
+      <workItem from="1644585839217" duration="597000" />
+      <workItem from="1644772183397" duration="4432000" />
     </task>
     <servers />
   </component>
@@ -140,5 +150,9 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="585" y="121" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.864@0.0.1536.864" timestamp="1643987020856" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1644774704243">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1644774704243" />
   </component>
 </project>
