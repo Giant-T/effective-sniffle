@@ -38,4 +38,12 @@ class LivreRepository
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function getApiKey($key) {
+        $sql = "SELECT id, no_cle FROM cle_api WHERE no_cle=:api_key;";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':api_key', $key);
+        $statement->execute();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

@@ -38,13 +38,15 @@ class UserRepository
             'first_name' => $user['first_name'],
             'last_name' => $user['last_name'],
             'email' => $user['email'],
+            'password' => password_hash($user['password'], PASSWORD_DEFAULT),
         ];
 
         $sql = "INSERT INTO users SET 
                 username=:username, 
                 first_name=:first_name, 
                 last_name=:last_name, 
-                email=:email;";
+                email=:email,
+                password=:password;";
 
         $this->connection->prepare($sql)->execute($row);
 
@@ -90,5 +92,53 @@ class UserRepository
             $stmt->execute(['id' => $id, 'email' => $data['email']]);
         }
         return $id;
+    }
+
+    /**
+     * Gets the user by the given username.
+     * 
+     * @param string $username The username
+     * 
+     * @return array The user
+     */
+    public function getUserByUsername($username) {
+        $sql = "SELECT * FROM users WHERE username=:username;";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':username', $username);
+        $statement->execute();
+        return $statement->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Deletes the users keys.
+     * 
+     * @param int $userId The user ID
+     * 
+     * @return int The number of affected rows
+     */
+    public function deleteUserKeys($userId) {
+        $sql = "DELETE FROM cle_api WHERE user_id=:user_id;";
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':user_id', $userId);
+        $statement->execute();
+        return $statement->rowCount();
+    }
+
+    /**
+     * Generate a key for the user.
+     * 
+     * @param int $userId The user ID
+     * 
+     * @return string The key
+     */
+    public function generateKey($id) {
+        $this->deleteuserKeys($id);
+        $sql = "INSERT INTO cle_api(no_cle, user_id) VALUES(:api_key, :id);";
+        $api_key = bin2hex(random_bytes(5));
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(':id', $id);
+        $statement->bindParam(':api_key', $api_key);
+        $statement->execute();
+        return $api_key;
     }
 }

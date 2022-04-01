@@ -21,34 +21,41 @@ final class LivreGetAction
         ServerRequestInterface $request,
         ResponseInterface $response
     ): ResponseInterface {
-        $livreData = $this->livreGetter->getLivres();
+        $authHeader = $request->getHeader('Authorization');
 
-        $queryParams = $request->getQueryParams() ?? [];
-        $tri = $queryParams['tri'] ?? 'asc';
+        if ($this->livreGetter->verifyApiKey($authHeader[0])) {
+            $livreData = $this->livreGetter->getLivres();
 
-        $page = $queryParams['page'] ?? 1;
+            $queryParams = $request->getQueryParams() ?? [];
+            $tri = $queryParams['tri'] ?? 'asc';
 
-        $page = is_numeric($page) ? (int)$page : 1;
+            $page = $queryParams['page'] ?? 1;
 
-        $livres = array_slice($livreData, (($page - 1) * 20), 20);
+            $page = is_numeric($page) ? (int)$page : 1;
 
-        if ($tri == 'asc') {
-            usort($livres, function($a, $b) {
-                return $a['title']>$b['title'];
-            });
+            $livres = array_slice($livreData, (($page - 1) * 20), 20);
+
+            if ($tri == 'asc') {
+                usort($livres, function ($a, $b) {
+                    return $a['title'] > $b['title'];
+                });
+            } else {
+                usort($livres, function ($a, $b) {
+                    return $a['title'] < $b['title'];
+                });
+            }
+
+            // Build the HTTP response
+            $response->getBody()->write((string)json_encode(array('livres' => $livres, 'page' => $page, 'page_total' => ceil(sizeof($livreData) / 20))));
+
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(200);
+        } else {
+            $response->getBody()->write((string)json_encode(array('errors' => array('code' => 401, 'message' => "Vous n'avez pas accès à cette ressource."))));
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withStatus(401);
         }
-        else {
-            usort($livres, function($a, $b) {
-                return $a['title']<$b['title'];
-            });
-        }
-
-        // Build the HTTP response
-        $response->getBody()->write((string)json_encode(array('livres'=>$livres, 'page'=>$page, 'page_total'=>ceil(sizeof($livreData) / 20))));
-
-        return $response
-            ->withHeader('Content-Type', 'application/json')
-            ->withStatus(200);
     }
-
 }

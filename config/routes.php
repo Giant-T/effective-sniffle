@@ -18,6 +18,9 @@ return function (App $app) {
     $app->get('/livres', \App\Action\LivreGetAction::class);
     $app->get('/livres/{id:[0-9]+}/description', \App\Action\LivreGetDescription::class);
 
+    // cle api
+    $app->get('/cle_api', \App\Action\CleApiGetAction::class);
+
     // Documentation de l'api
     $app->get('/docs', \App\Action\Docs\SwaggerUiAction::class);
 

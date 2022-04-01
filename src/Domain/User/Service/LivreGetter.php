@@ -40,4 +40,14 @@ final class LivreGetter
     public function getLivreDescription($id) {
         return $this->repository->getLivreDescription($id);
     }
+
+    public function verifyApiKey($auth) {
+        // gets the bearer token from the header
+        $bearerToken = str_replace('Bearer ', '', $auth);
+
+        // validate the api key is in the database
+        $rows = $this->repository->getApiKey($bearerToken);
+
+        return $rows != false;
+    }
 }

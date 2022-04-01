@@ -100,4 +100,31 @@ final class UserCreator
             throw new ValidationException('Please check your input', $errors);
         }
     }
+
+    /**
+     * Create the api key.
+     * 
+     * @param auth The authentification header.
+     * 
+     * @return string The api key.
+     */
+    public function createUserKey($auth) {
+        // get the user name and password from the header
+        $auth = explode(" ", $auth);
+        $auth = base64_decode($auth[1]);
+        $auth = explode(":", $auth);
+        $username = $auth[0];
+        $password_auth = $auth[1];
+
+
+        // get the user from the database
+        $user = $this->repository->getUserByUsername($username);
+
+        // check if the password is correct
+        if (password_verify($password_auth, $user['password'])) {
+            return array("cle_api" => $this->repository->generateKey($user['id']));
+        } else {
+            return array("error" => "Invalid credentials");
+        }
+    }
 }
